@@ -16,7 +16,7 @@ import {
   Colors,
 } from 'react-native/Libraries/NewAppScreen';
 
-import SignInForm from './src/components/SignInForm';
+import MainScreen from './src/components/MainScreen';
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -27,7 +27,7 @@ function App(): React.JSX.Element {
 
   return (
     <SafeAreaView style={[backgroundStyle, styles.container]}>
-      <SignInForm />
+      <MainScreen />
     </SafeAreaView>
   );
 }
