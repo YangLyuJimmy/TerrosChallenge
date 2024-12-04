@@ -28,8 +28,8 @@ const King: React.FC<KingProps> = ({ color, position, onMove }) => {
 
   return (
     <View style={[styles.king, { backgroundColor: color }]}>
-      <View style={styles.crown} />
-      <View style={styles.cross} />
+      <View style={[styles.crown, { borderColor: color === 'white' ? '#000' : '#fff' }]} />
+      <View style={[styles.cross, { backgroundColor: color === 'white' ? '#000' : '#fff' }]} />
     </View>
   );
 };
@@ -48,12 +48,10 @@ const styles = StyleSheet.create({
     borderTopWidth: 6,
     borderLeftWidth: 2,
     borderRightWidth: 2,
-    borderColor: '#000',
   },
   cross: {
     width: 4,
     height: 12,
-    backgroundColor: '#000',
     position: 'absolute',
     top: '40%',
   },

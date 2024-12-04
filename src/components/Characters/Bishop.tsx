@@ -28,8 +28,8 @@ const Bishop: React.FC<BishopProps> = ({ color, position, onMove }) => {
 
   return (
     <View style={[styles.bishop, { backgroundColor: color }]}>
-      <View style={styles.head} />
-      <View style={styles.body} />
+      <View style={[styles.head, { backgroundColor: color === 'white' ? '#000' : '#fff' }]} />
+      <View style={[styles.body, { backgroundColor: color === 'white' ? '#000' : '#fff' }]} />
     </View>
   );
 };
@@ -46,7 +46,6 @@ const styles = StyleSheet.create({
     width: 12,
     height: 12,
     borderRadius: 6,
-    backgroundColor: '#000',
     position: 'absolute',
     top: '30%',
   },
@@ -55,7 +54,6 @@ const styles = StyleSheet.create({
     height: 20,
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
-    backgroundColor: '#000',
     position: 'absolute',
     bottom: '30%',
   },

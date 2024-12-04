@@ -32,8 +32,8 @@ const Queen: React.FC<QueenProps> = ({ color, position, onMove }) => {
 
   return (
     <View style={[styles.queen, { backgroundColor: color }]}>
-      <View style={styles.crown} />
-      <View style={styles.orb} />
+      <View style={[styles.crown, { borderColor: color === 'white' ? '#000' : '#fff' }]} />
+      <View style={[styles.orb, { backgroundColor: color === 'white' ? '#000' : '#fff' }]} />
     </View>
   );
 };
@@ -52,7 +52,6 @@ const styles = StyleSheet.create({
     borderTopWidth: 6,
     borderLeftWidth: 3,
     borderRightWidth: 3,
-    borderColor: '#000',
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
   },
@@ -60,7 +59,6 @@ const styles = StyleSheet.create({
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: '#000',
     position: 'absolute',
     top: '35%',
   },

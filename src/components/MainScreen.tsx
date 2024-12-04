@@ -8,11 +8,91 @@ import {
 import ChessBoard from './ChessBoard';
 
 const MainScreen = () => {
-  const [currentTurn, setCurrentTurn] = useState('White');
+  const [currentTurn, setCurrentTurn] = useState('white');
+  const [pieces, setPieces] = useState([
+    { type: 'Rook', color: 'white', position: { row: 0, col: 0 } },
+    { type: 'Knight', color: 'white', position: { row: 0, col: 1 } },
+    { type: 'Bishop', color: 'white', position: { row: 0, col: 2 } },
+    { type: 'Queen', color: 'white', position: { row: 0, col: 3 } },
+    { type: 'King', color: 'white', position: { row: 0, col: 4 } },
+    { type: 'Bishop', color: 'white', position: { row: 0, col: 5 } },
+    { type: 'Knight', color: 'white', position: { row: 0, col: 6 } },
+    { type: 'Rook', color: 'white', position: { row: 0, col: 7 } },
+    { type: 'Pawn', color: 'white', position: { row: 1, col: 0 } },
+    { type: 'Pawn', color: 'white', position: { row: 1, col: 1 } },
+    { type: 'Pawn', color: 'white', position: { row: 1, col: 2 } },
+    { type: 'Pawn', color: 'white', position: { row: 1, col: 3 } },
+    { type: 'Pawn', color: 'white', position: { row: 1, col: 4 } },
+    { type: 'Pawn', color: 'white', position: { row: 1, col: 5 } },
+    { type: 'Pawn', color: 'white', position: { row: 1, col: 6 } },
+    { type: 'Pawn', color: 'white', position: { row: 1, col: 7 } },
+    
+    { type: 'Rook', color: 'black', position: { row: 7, col: 0 } },
+    { type: 'Knight', color: 'black', position: { row: 7, col: 1 } },
+    { type: 'Bishop', color: 'black', position: { row: 7, col: 2 } },
+    { type: 'Queen', color: 'black', position: { row: 7, col: 3 } },
+    { type: 'King', color: 'black', position: { row: 7, col: 4 } },
+    { type: 'Bishop', color: 'black', position: { row: 7, col: 5 } },
+    { type: 'Knight', color: 'black', position: { row: 7, col: 6 } },
+    { type: 'Rook', color: 'black', position: { row: 7, col: 7 } },
+    { type: 'Pawn', color: 'black', position: { row: 6, col: 0 } },
+    { type: 'Pawn', color: 'black', position: { row: 6, col: 1 } },
+    { type: 'Pawn', color: 'black', position: { row: 6, col: 2 } },
+    { type: 'Pawn', color: 'black', position: { row: 6, col: 3 } },
+    { type: 'Pawn', color: 'black', position: { row: 6, col: 4 } },
+    { type: 'Pawn', color: 'black', position: { row: 6, col: 5 } },
+    { type: 'Pawn', color: 'black', position: { row: 6, col: 6 } },
+    { type: 'Pawn', color: 'black', position: { row: 6, col: 7 } },
+  ]);
 
-  const handleReset = () => {
-    // Reset game logic will go here
-    setCurrentTurn('White');
+  const handleMove = (piece, targetPosition) => {
+    // Update the position of the piece
+    setPieces(prevPieces => 
+      prevPieces.map(p => 
+        p === piece ? { ...p, position: targetPosition } : p
+      )
+    );
+    // Switch turns
+    setCurrentTurn(currentTurn === 'white' ? 'black' : 'white');
+  };
+
+  const resetGame = () => {
+    setCurrentTurn('white');
+    setPieces([
+      { type: 'Rook', color: 'white', position: { row: 0, col: 0 } },
+      { type: 'Knight', color: 'white', position: { row: 0, col: 1 } },
+      { type: 'Bishop', color: 'white', position: { row: 0, col: 2 } },
+      { type: 'Queen', color: 'white', position: { row: 0, col: 3 } },
+      { type: 'King', color: 'white', position: { row: 0, col: 4 } },
+      { type: 'Bishop', color: 'white', position: { row: 0, col: 5 } },
+      { type: 'Knight', color: 'white', position: { row: 0, col: 6 } },
+      { type: 'Rook', color: 'white', position: { row: 0, col: 7 } },
+      { type: 'Pawn', color: 'white', position: { row: 1, col: 0 } },
+      { type: 'Pawn', color: 'white', position: { row: 1, col: 1 } },
+      { type: 'Pawn', color: 'white', position: { row: 1, col: 2 } },
+      { type: 'Pawn', color: 'white', position: { row: 1, col: 3 } },
+      { type: 'Pawn', color: 'white', position: { row: 1, col: 4 } },
+      { type: 'Pawn', color: 'white', position: { row: 1, col: 5 } },
+      { type: 'Pawn', color: 'white', position: { row: 1, col: 6 } },
+      { type: 'Pawn', color: 'white', position: { row: 1, col: 7 } },
+      
+      { type: 'Rook', color: 'black', position: { row: 7, col: 0 } },
+      { type: 'Knight', color: 'black', position: { row: 7, col: 1 } },
+      { type: 'Bishop', color: 'black', position: { row: 7, col: 2 } },
+      { type: 'Queen', color: 'black', position: { row: 7, col: 3 } },
+      { type: 'King', color: 'black', position: { row: 7, col: 4 } },
+      { type: 'Bishop', color: 'black', position: { row: 7, col: 5 } },
+      { type: 'Knight', color: 'black', position: { row: 7, col: 6 } },
+      { type: 'Rook', color: 'black', position: { row: 7, col: 7 } },
+      { type: 'Pawn', color: 'black', position: { row: 6, col: 0 } },
+      { type: 'Pawn', color: 'black', position: { row: 6, col: 1 } },
+      { type: 'Pawn', color: 'black', position: { row: 6, col: 2 } },
+      { type: 'Pawn', color: 'black', position: { row: 6, col: 3 } },
+      { type: 'Pawn', color: 'black', position: { row: 6, col: 4 } },
+      { type: 'Pawn', color: 'black', position: { row: 6, col: 5 } },
+      { type: 'Pawn', color: 'black', position: { row: 6, col: 6 } },
+      { type: 'Pawn', color: 'black', position: { row: 6, col: 7 } },
+    ]);
   };
 
   return (
@@ -20,14 +100,14 @@ const MainScreen = () => {
       <Text style={styles.title}>Chess Game</Text>
       
       <Text style={styles.turnIndicator}>
-        Current Turn: {currentTurn}
+        Current Turn: {currentTurn.charAt(0).toUpperCase() + currentTurn.slice(1)}
       </Text>
 
-      <ChessBoard />
+      <ChessBoard pieces={pieces} onMove={handleMove} />
 
       <TouchableOpacity
         style={styles.resetButton}
-        onPress={handleReset}
+        onPress={resetGame}
       >
         <Text style={styles.resetButtonText}>Reset Game</Text>
       </TouchableOpacity>

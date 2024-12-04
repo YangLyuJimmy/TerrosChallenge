@@ -11,13 +11,14 @@ interface RookProps {
 }
 
 const Rook: React.FC<RookProps> = ({ color, position, onMove }) => {
-  const isValidMove = (newRow: number, newCol: number): boolean => {
-    // Rook can move horizontally or vertically
+  const isValidMove = (newRow: number, newCol: number) => {
     const rowDiff = Math.abs(newRow - position.row);
     const colDiff = Math.abs(newCol - position.col);
-    
-    // Check if move is either horizontal or vertical but not both
-    return ((rowDiff === 0 && colDiff > 0) || (colDiff === 0 && rowDiff > 0));
+
+    return (
+      (rowDiff === 0 || colDiff === 0) && // horizontal or vertical only
+      !(rowDiff === 0 && colDiff === 0) // not staying in place
+    );
   };
 
   const handleMove = (newRow: number, newCol: number) => {
@@ -28,8 +29,12 @@ const Rook: React.FC<RookProps> = ({ color, position, onMove }) => {
 
   return (
     <View style={[styles.rook, { backgroundColor: color }]}>
-      <View style={styles.tower} />
-      <View style={styles.base} />
+      <View style={styles.top}>
+        <View style={[styles.battlement, { backgroundColor: color === 'white' ? '#000' : '#fff' }]} />
+        <View style={[styles.battlement, { backgroundColor: color === 'white' ? '#000' : '#fff' }]} />
+        <View style={[styles.battlement, { backgroundColor: color === 'white' ? '#000' : '#fff' }]} />
+      </View>
+      <View style={[styles.base, { backgroundColor: color === 'white' ? '#000' : '#fff' }]} />
     </View>
   );
 };
@@ -42,19 +47,27 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 20,
   },
-  tower: {
-    width: 20,
-    height: 24,
-    borderWidth: 3,
-    borderColor: '#000',
-    borderTopWidth: 0,
+  top: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '80%',
+    position: 'absolute',
+    top: '25%',
+  },
+  battlement: {
+    width: 8,
+    height: 12,
+    backgroundColor: '#000',
+    borderTopLeftRadius: 2,
+    borderTopRightRadius: 2,
   },
   base: {
-    width: 24,
-    height: 4,
+    width: 20,
+    height: 20,
     backgroundColor: '#000',
+    borderRadius: 4,
     position: 'absolute',
-    bottom: '35%',
+    bottom: '25%',
   },
 });
 

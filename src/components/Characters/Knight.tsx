@@ -26,8 +26,8 @@ const Knight: React.FC<KnightProps> = ({ color, position, onMove, board }) => {
 
   return (
     <View style={[styles.knight, { backgroundColor: color }]}>
-      <View style={styles.head} />
-      <View style={styles.neck} />
+      <View style={[styles.head, { backgroundColor: color === 'white' ? '#000' : '#fff' }]} />
+      <View style={[styles.neck, { backgroundColor: color === 'white' ? '#000' : '#fff' }]} />
     </View>
   );
 };
@@ -45,7 +45,6 @@ const styles = StyleSheet.create({
     height: 18,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 4,
-    backgroundColor: '#000',
     position: 'absolute',
     top: '30%',
     transform: [{ rotate: '45deg' }]
@@ -53,7 +52,6 @@ const styles = StyleSheet.create({
   neck: {
     width: 10,
     height: 16,
-    backgroundColor: '#000',
     position: 'absolute',
     bottom: '35%'
   }

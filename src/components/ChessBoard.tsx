@@ -1,15 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {View, StyleSheet} from 'react-native';
+import King from './Characters/King';
+import Queen from './Characters/Queen';
+import Rook from './Characters/Rook';
+import Bishop from './Characters/Bishop';
+import Knight from './Characters/Knight';
+import Pawn from './Characters/Pawns';
 
-const ChessBoard = () => {
+const ChessBoard = ({ pieces, onMove }) => {
   
   const squares = Array(8).fill(null).map((_, row) => 
-    Array(8).fill(null).map((_, col) => ({
-      row,
-      col,
-      isLight: (row + col) % 2 === 0
-    }))
+    Array(8).fill(null).map((_, col) => {
+      const piece = pieces.find(piece => piece.position.row === row && piece.position.col === col);
+      return {
+        row,
+        col,
+        isLight: (row + col) % 2 === 0,
+        piece: piece || null
+      };
+    })
   );
+
+  const renderPiece = (piece) => {
+    switch (piece.type) {
+      case 'King':
+        return <King color={piece.color} position={piece.position} onMove={onMove} />;
+      case 'Queen':
+        return <Queen color={piece.color} position={piece.position} onMove={onMove} />;
+      case 'Rook':
+        return <Rook color={piece.color} position={piece.position} onMove={onMove} />;
+      case 'Bishop':
+        return <Bishop color={piece.color} position={piece.position} onMove={onMove} />;
+      case 'Knight':
+        return <Knight color={piece.color} position={piece.position} onMove={onMove} />;
+      case 'Pawn':
+        return <Pawn color={piece.color} position={piece.position} onMove={onMove} />;
+      default:
+        return null;
+    }
+  };
+
+  const [selectedPiece, setSelectedPiece] = useState(null);
 
   return (
     <View style={styles.board}>
@@ -22,7 +53,19 @@ const ChessBoard = () => {
                 styles.square,
                 {backgroundColor: square.isLight ? '#F0D9B5' : '#B58863'}
               ]}
-            />
+              onTouchEnd={() => {
+                if (selectedPiece) {
+                  // Move the selected piece to the target square
+                  onMove(selectedPiece, square.position);
+                  setSelectedPiece(null); // Deselect the piece after moving
+                } else if (square.piece) {
+                  // Select the piece if it's not already selected
+                  setSelectedPiece(square.piece);
+                }
+              }}
+            >
+              {square.piece && renderPiece(square.piece)}
+            </View>
           ))}
         </View>
       ))}

@@ -52,8 +52,8 @@ const Pawn: React.FC<PawnProps> = ({ color, position, onMove }) => {
 
   return (
     <View style={[styles.pawn, { backgroundColor: color }]}>
-      <View style={styles.head} />
-      <View style={styles.body} />
+      <View style={[styles.head, { backgroundColor: color === 'white' ? '#000' : '#fff' }]} />
+      <View style={[styles.body, { backgroundColor: color === 'white' ? '#000' : '#fff' }]} />
     </View>
   );
 };
